@@ -1,4 +1,6 @@
 #include<bits/stdc++.h>
+#include<cstdlib>
+#include <ctime>
 
 using namespace std;
 
@@ -8,12 +10,31 @@ int main() {
     cout << "*************************************" << endl;
 
     bool nao_acertou = true;
-    const int NUMERO_SECRETO = 42;
+    srand(time(NULL));
+    const int NUMERO_SECRETO = rand() % 100;
     int tentativas = 0;
 
     double pontos = 1000.0;
 
-    while(nao_acertou) {
+    cout << "Escolha o seu nível de dificuldade: " << endl;
+    cout << "Fácil (F), Médio (M) ou Difícil (D)" << endl;
+
+    char dificuldade;
+    cin >> dificuldade;
+    
+    int numero_de_tentativas;
+
+    if (dificuldade == 'F') {
+        numero_de_tentativas = 15;
+    } 
+    else if (dificuldade == 'M') {
+        numero_de_tentativas = 10;
+    }
+    else {
+        numero_de_tentativas = 5;
+    }
+
+    while(nao_acertou && tentativas <= numero_de_tentativas) {
         tentativas++;
         int chute;
         cout << "Qual é o seu chute? ";
@@ -29,6 +50,8 @@ int main() {
         if (acertou) {
             cout << "Parabens! Você acertou o número secreto!" << endl;
             nao_acertou = false;
+            cout << "Voce acertou em " << tentativas << " tentativas" << endl;
+            cout << "Pontos: " << fixed << pontos << endl;
         }
         else if (maior) {
             cout << "Seu chute foi maior que o número secreto" << endl;
@@ -37,9 +60,8 @@ int main() {
             cout << "Seu chute foi menor que o número secreto" << endl;
         }
     }
+    cout << "O numero era " << NUMERO_SECRETO << endl;
     cout << "Fim de jogo!" << endl;
-    cout << "Voce acertou em " << tentativas << " tentativas" << endl;
     cout.precision(2);
-    cout << "Pontos: " << fixed << pontos << endl;
     return 0;
 }
